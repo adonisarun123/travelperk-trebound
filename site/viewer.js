@@ -12,6 +12,15 @@
   fetch(`../${file}`)
     .then((res) => {
       if (!res.ok) {
+        // Attempt to fetch from GitHub raw as fallback (for GitHub Pages paths)
+        return fetch(
+          `https://raw.githubusercontent.com/adonisarun123/travelperk-trebound/main/${file}`
+        );
+      }
+      return res;
+    })
+    .then((res) => {
+      if (!res.ok) {
         throw new Error('Could not load document');
       }
       return res.text();
