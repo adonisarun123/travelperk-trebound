@@ -1,7 +1,7 @@
 import { getDocBySlug, getAllDocs } from '@lib/docs';
 import Layout from '@components/Layout';
 import type { GetStaticPaths, GetStaticProps } from 'next';
-import remark from 'remark';
+import { remark } from 'remark';
 import html from 'remark-html';
 
 interface Props {
