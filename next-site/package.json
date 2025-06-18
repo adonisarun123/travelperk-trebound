@@ -1,0 +1,23 @@
+{
+  "name": "trebound-travel-site",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000"
+  },
+  "dependencies": {
+    "next": "13.5.7",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "gray-matter": "^4.0.3",
+    "remark": "^15.0.0",
+    "remark-html": "^15.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.26",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.4.2"
+  }
+} 
