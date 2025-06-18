@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { ReactNode } from 'react';
-import '../styles/globals.css';
 
 type Props = {
   title?: string;
