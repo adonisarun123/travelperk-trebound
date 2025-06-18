@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-const docsDirectory = path.join(process.cwd(), 'next-site', 'docs');
+const docsDirectory = path.join(process.cwd(), 'docs');
 
 export function getDocSlugs() {
   return fs.readdirSync(docsDirectory).filter((f) => f.endsWith('.md'));
