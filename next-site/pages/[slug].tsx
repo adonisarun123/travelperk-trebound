@@ -4,7 +4,9 @@ import type { GetStaticPaths, GetStaticProps } from 'next';
 import { remark } from 'remark';
 import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
-import remarkHtml from 'remark-html';
+import remarkRehype from 'remark-rehype';
+import rehypeStringify from 'rehype-stringify';
+import rehypeHighlight from 'rehype-highlight';
 
 interface Props {
   title: string;
@@ -20,7 +22,7 @@ export default function DocPage({ title, htmlContent }: Props) {
         </h1>
       </section>
       <article
-        className="prose lg:prose-lg mx-auto px-6 py-16"
+        className="prose prose-slate dark:prose-invert lg:prose-xl mx-auto px-6 py-16"
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
     </Layout>
@@ -41,7 +43,9 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const processed = await remark()
     .use(remarkParse)
     .use(remarkGfm)
-    .use(remarkHtml as any)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeHighlight)
+    .use(rehypeStringify, { allowDangerousHtml: true })
     .process(doc.content);
   return {
     props: {
