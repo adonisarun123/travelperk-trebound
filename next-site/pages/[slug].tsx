@@ -2,6 +2,8 @@ import { getDocBySlug, getAllDocs } from '@lib/docs';
 import Layout from '@components/Layout';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import { remark } from 'remark';
+import remarkParse from 'remark-parse';
+import remarkGfm from 'remark-gfm';
 import remarkHtml from 'remark-html';
 
 interface Props {
@@ -36,7 +38,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const slug = params?.slug as string;
   const doc = getDocBySlug(slug);
-  const processed = await remark().use(remarkHtml as any).process(doc.content);
+  const processed = await remark()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkHtml as any)
+    .process(doc.content);
   return {
     props: {
       title: doc.title,
