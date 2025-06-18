@@ -26,9 +26,27 @@
       return res.text();
     })
     .then((markdown) => {
-      document.getElementById('content').innerHTML = marked.parse(markdown);
+      const contentEl = document.getElementById('content');
+      contentEl.innerHTML = marked.parse(markdown);
 
-      // Update document title based on the first heading
+      // Build hero from first <h1>
+      const firstH1 = contentEl.querySelector('h1');
+      if (firstH1) {
+        const hero = document.createElement('section');
+        hero.className = 'doc-hero';
+        hero.innerHTML = `<div class="container"><h1>${firstH1.textContent}</h1></div>`;
+        contentEl.prepend(hero);
+        firstH1.remove();
+      }
+
+      // Syntax highlighting
+      if (window.hljs) {
+        document.querySelectorAll('pre code').forEach((block) => {
+          window.hljs.highlightElement(block);
+        });
+      }
+
+      // Update document title
       const match = markdown.match(/^#\s+(.*)/m);
       if (match) {
         document.title = match[1];
